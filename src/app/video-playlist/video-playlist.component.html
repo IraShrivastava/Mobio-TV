@@ -1,0 +1,35 @@
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="videoPlaylist.length>0"> 
+      <div class="col video-card" *ngFor="let videos of videoPlaylist">
+        <div class="card shadow-sm">
+          <img src="{{videos.url}}" alt="video related image " style="width: 100%; height: 225px;" />
+          <div class="card-body">
+            <p class="card-text title">{{videos.title | uppercase}} </p>
+            <p class="card-text show-less">{{videos.description}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-warning" (click)="getVideoDetails(videos.id)" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop='static' data-keyboard='false'>Play</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="currentVideo">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <h1 class="modal-title">{{currentVideo.title | uppercase}}</h1>
+          <br />
+          <app-video-player [currentVideo]="currentVideo"></app-video-player>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary p-2" (click)="likedVideo()">Like</button>
+            <button type="button" class="btn btn-danger p-2" (click)="dislikedVideo()">Dislike</button>
+            <button type="button" class="btn btn-secondary ml-auto p-2" data-dismiss="modal" (click)="modalClosed()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
